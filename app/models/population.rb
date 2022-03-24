@@ -4,7 +4,7 @@ class Population
 
   def initialize(size)
     @size = size
-    @chromosomes = size.times { Chromosome.new }
+    @chromosomes = Array.new(size) { Chromosome.new }
   end
 
   def setup_selection

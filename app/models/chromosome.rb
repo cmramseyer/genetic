@@ -1,7 +1,10 @@
 class Chromosome
-  LENGTH = 50
-  def initialize
-    @chromosome = Array.new(LENGTH) { [true, false].sample }
+  LENGTH = 100
+
+  attr_accessor :chromosome
+
+  def initialize(chromosome = nil)
+    @chromosome = chromosome || Array.new(LENGTH) { [true, false].sample }
   end
 
   def mutate
@@ -11,5 +14,10 @@ class Chromosome
   def evaluate
     @chromosome.map {|chromo| chromo ? 1 : 0 }.sum
   end
+
+  def length
+    LENGTH
+  end
+  
   
 end
