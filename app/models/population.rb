@@ -8,24 +8,30 @@ class Population
   end
 
   def setup_selection
+    acum = 0
     @chromosomes_evaluated = @chromosomes.map do |chromo|
-      { chromosome: chromo, evaluation: chromo.evaluate }
+      acum += chromo.evaluate
+      { chromosome: chromo, evaluation: chromo.evaluate, acum: acum }
     end
     @evaluation_sum = @chromosomes_evaluated.sum {|h| h[:evaluation]}
   end
 
   def select_one
-    threshold = rand(0..@evaluation_sum)
-    acum = 0
+    threshold = random
     @size.times do |i|
-      acum += @chromosomes_evaluated[i][:evaluation]
-      return @chromosomes_evaluated[i][:chromosome] if acum >= threshold
+      return @chromosomes_evaluated[i][:chromosome] if @chromosomes_evaluated[i][:acum] >= threshold
     end
+    @chromosomes_evaluated.last[:chromosome]
   end
 
   def the_best
     @chromosomes_evaluated.sort_by {|h| h[:evaluation]}.last[:chromosome]
   end
+
+  def random
+    rand(0..@evaluation_sum)
+  end
+  
   
   
 end

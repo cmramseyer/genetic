@@ -1,5 +1,5 @@
 class Chromosome
-  LENGTH = 100
+  LENGTH = 18
 
   attr_accessor :chromosome
 
@@ -7,7 +7,7 @@ class Chromosome
     @chromosome = chromosome || Array.new(LENGTH) { [true, false].sample }
   end
 
-  def mutate
+  def mutate!
     @chromosome[LENGTH - 1] = !@chromosome[LENGTH - 1]
   end
 
@@ -16,7 +16,7 @@ class Chromosome
   end
 
   def length
-    LENGTH
+    @chromosome.size
   end
   
   
