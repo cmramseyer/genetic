@@ -18,10 +18,8 @@ class Population
 
   def select_one
     threshold = random
-    @size.times do |i|
-      return @chromosomes_evaluated[i][:chromosome] if @chromosomes_evaluated[i][:acum] >= threshold
-    end
-    @chromosomes_evaluated.last[:chromosome]
+    selected = @chromosomes_evaluated.detect {|chromo| chromo[:acum] >= threshold }
+    selected[:chromosome]
   end
 
   def the_best
@@ -31,6 +29,11 @@ class Population
   def random
     rand(0..@evaluation_sum)
   end
+
+  def all_fit
+    @chromosomes.map(&:evaluate)
+  end
+  
   
   
   

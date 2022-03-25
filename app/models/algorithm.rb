@@ -1,15 +1,19 @@
 class Algorithm
 
-  GENERATIONS = 200
+  GENERATIONS = 5
+
+  attr_reader :stats
 
   def initialize
-    
+    @stats = Stats.new
   end
 
   def basic
-    pop_size = 20
+    pop_size = 10
     population = Population.new(pop_size)
-    GENERATIONS.times do
+    population.setup_selection
+    @stats.add_generation_info({generation: 0, best_fit: population.the_best.evaluate, population_fit: population.all_fit})
+    GENERATIONS.times do |i|
       population.setup_selection
       puts "pupulation before cross over"
       puts population.chromosomes.size
@@ -28,6 +32,8 @@ class Algorithm
         new_childs << child1 << child2
       end
       population.chromosomes = new_childs
+      @stats.add_generation_info({generation: i, best_fit: population.the_best.evaluate, population_fit: population.all_fit})
+
     end
     population.the_best
     

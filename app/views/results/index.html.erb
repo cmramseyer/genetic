@@ -6,3 +6,24 @@ Evaluation
 <%= @best.evaluate %>
 
 Size <%= @best.length %>
+
+
+<table>
+  <head>
+    <tr>
+      <th>Gen</th>
+      <th>Best Fit</th>
+      <th>Population</th>
+    </tr>
+  </head>
+  <body>
+    <% @stats.each do |stat| %>
+      <tr>
+        <th><%= stat[:generation] %></th>
+        <th><%= stat[:best_fit] %></th>
+        <th><%= stat[:population_fit] %></th>
+      </tr>
+    <% end %>
+  </body>
+</table>
+ 
